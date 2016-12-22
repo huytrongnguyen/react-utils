@@ -1,13 +1,13 @@
 {
   "name": "rc-lazy",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Utility Components and Services for React",
   "main": "dist/index.js",
   "author": "huytrongnguyen",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/huytrongnguyen/react-util.git"
+    "url": "https://github.com/huytrongnguyen/react-utils.git"
   },
   "scripts": {
     "build": "rm -rf dist/* && babel src -D -d dist"

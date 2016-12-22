@@ -1,10 +1,4 @@
-# react-utils
-
-Utility Components and Services for react
-
 This project is divided in multiple parts
-
-
 
 ## Installation
 
