@@ -1,5 +1,10 @@
 This project is divided in multiple parts
 
+# LazyContainer
+
+As we know, React has no networking/AJAX features. You can see this article: [http://andrewhfarmer.com/react-ajax-best-practices/](http://andrewhfarmer.com/react-ajax-best-practices/)
+I like Relay but it only works with GraphQL. Then I make a small library based on Relay concept but it will work with RESTful backends.
+
 ## Installation
 
 You'll need both React and React Utils:
@@ -33,23 +38,7 @@ class MyComponent extends LazyContainer {
     const { TestData } = this.state
     return <div>
       <p>{JSON.stringify(TestData)}</p>
-      <input type="button" text="Login" onClick={() => this.login()} />
     </div>;
-  }
-
-  login() {
-    this.props.lazy.login({
-      record: {
-        Id: "my_id",
-        Password: "my_password"
-      },
-      success: response => {
-        console.log(response)
-      },
-      failure: response => {
-        console.log(response)
-      }
-    })
   }
 }
 
@@ -60,15 +49,9 @@ MyComponent.defaultProps = {
 export default MyComponent
 ```
 
-MyComponent will load and make an AJAX request to ```http://<IP Server>:<Port>/api/system``` to get the data.
+You need to setup the endpoint (and BASE_URL if needed) to make an AJAX request to ```http://<IP Server>:<Port>/api/system``` to get the data.
 
-The response data will look like:
-
-```json
-{
-  TestData: [{...}]
-}
-```
+The response data will be pushed to state so UI will change whenever state changes.
 
 In case we want to make a POST request to ```http://<IP Server>:<Port>/api/system/login```, add the mutations object into defaultProps:
 
@@ -84,7 +67,7 @@ MyComponent.defaultProps = {
 }
 ```
 
-Then you can call ```login``` as a function like this:
+Then you can call ```login``` as a function and add the record, success function and failure function like this:
 
 ```javascript
 this.props.lazy.login({
@@ -113,6 +96,20 @@ MyComponent.defaultProps = {
         size: 20
       }
     }
+  }
+}
+```
+
+And one more thing, if you want to do something with the response data before it's pushed to state, just add the resolve function like below:
+
+```javascript
+MyComponent.defaultProps = {
+  endpoint: 'master-data/card',
+  resolve: response => {
+    response.groups = Seq.groupBy(response.Cards, card => card.Type)
+    response.keys = Seq.keySet(response.groups)
+    response.active = response.keys[0]
+    return response
   }
 }
 ```
