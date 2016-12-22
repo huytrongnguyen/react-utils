@@ -70,7 +70,7 @@ MyComponent will load and make an AJAX request to ```http://<IP Server>:<Port>/a
 
 The response data will look like:
 
-```
+```json
 {
   TestData: [{...}]
 }
@@ -78,7 +78,7 @@ The response data will look like:
 
 In case we want to make a POST request to ```http://<IP Server>:<Port>/api/system/login```, add the mutations object into defaultProps:
 
-```
+```javascript
 MyComponent.defaultProps = {
   endpoint: 'system',
   mutations: {
@@ -92,7 +92,7 @@ MyComponent.defaultProps = {
 
 Then you can call ```login``` as a function like this:
 
-```
+```javascript
 this.props.lazy.login({
   record: {
     Id: "my_id",
@@ -109,7 +109,7 @@ this.props.lazy.login({
 
 In case we want to add some query params, just change the endpoint:
 
-```
+```javascript
 MyComponent.defaultProps = {
   endpoint: {
     name: 'system',

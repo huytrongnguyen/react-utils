@@ -1,6 +1,6 @@
 {
   "name": "rc-lazy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Utility Components and Services for React",
   "main": "dist/index.js",
   "author": "huytrongnguyen",
