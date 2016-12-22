@@ -8,21 +8,21 @@ export default class LazyContainer extends Component {
 
   componentWillMount() {
     this.props.relay = {}
-    const { mutations, relay } = this.props
+    const { mutations, lazy } = this.props
     if (mutations) {
       for (let mutationName in mutations) {
-        relay[mutationName] = mutationFragment => this.commitUpdate(mutations[mutationName], mutationFragment)
+        lazy[mutationName] = options => this.commitUpdate(mutations[mutationName], options)
       }
     }
   }
 
   async componentDidMount() {
-    if (!this.props.fragment) {
+    if (!this.props.endpoint) {
       return;
     }
-    const fragment = this.props.fragment
-    const endpoint = fragment.name || fragment
-    const params = fragment.initialVariables ? fragment.initialVariables() : null
+    let endpoint = this.props.endpoint
+    endpoint = endpoint.name || endpoint
+    const params = endpoint.initialVariables ? endpoint.initialVariables() : null
     let response = await Store.fetch(endpoint, params)
     if (this.props.resolve) {
       response = this.props.resolve(response)
@@ -30,13 +30,13 @@ export default class LazyContainer extends Component {
     this.setState(response)
   }
 
-  async commitUpdate(mutator, mutationFragment) {
-    const endpoint = mutationFragment.path || mutator.path
-    const response = await Store.mutate(endpoint, mutator.type, mutationFragment.record)
-    if (response && mutationFragment.success) {
-      mutationFragment.success(response)
-    } else if (mutationFragment.failure) {
-      mutationFragment.failure()
+  async commitUpdate(mutator, options) {
+    const endpoint = options.path || mutator.path
+    const response = await Store.mutate(endpoint, mutator.type, options.record)
+    if (response && options.success) {
+      options.success(response)
+    } else if (options.failure) {
+      options.failure()
     }
   }
 }
