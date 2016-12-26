@@ -45,7 +45,9 @@ var Cache = function () {
   }, {
     key: 'remove',
     value: function remove(key) {
-      if (this.hasLocalStorage()) {
+      if (!key) {
+        this._cache = {};
+      } else if (this.hasLocalStorage()) {
         localStorage.removeItem(key);
       } else {
         delete this._cache[key];

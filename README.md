@@ -1,23 +1,27 @@
 This project is divided in multiple parts
 
-# LazyContainer
+# Installation
 
-As we know, React has no networking/AJAX features. You can see this article: [http://andrewhfarmer.com/react-ajax-best-practices/](http://andrewhfarmer.com/react-ajax-best-practices/)
-I like Relay but it only works with GraphQL. Then I make a small library based on Relay concept but it will work with RESTful backends.
-
-## Installation
-
-You'll need both React and React Utils:
+You'll need both React and React Lazy:
 
 `npm install --save react rc-lazy`
 
+# LazyContainer
 
-## LazyContainer
+A JAVASCRIPT LIBRARY FOR BUILDING DATA-DRIVEN REACT APPLICATIONS
 
-Library for React and RESTful backends
+As we know, React has no networking/AJAX features. You can see this article: [http://andrewhfarmer.com/react-ajax-best-practices/](http://andrewhfarmer.com/react-ajax-best-practices/)
+I like Relay but it only works with GraphQL. Then I make a small library based on Relay concept and mix it with Comtainer Components and it works with RESTful backends.
 
+![Alt](http://andrewhfarmer.com/react-ajax-best-practices/img/container-components.png "Container Components")
+![Alt](http://andrewhfarmer.com/react-ajax-best-practices/img/relay.png "Relay")
 
-### Usage
+It doesn't violate "separation of concerns" design principle since we do not have any real AJAX request in presentation component. Every AJAX requests lives in container component called LazyContainer.
+The response data will be pushed into the state so that UI can change whenever state change.
+
+## Usage
+
+### Containers
 
 Create a React component extends from LazyContainer:
 
@@ -25,13 +29,12 @@ Create a React component extends from LazyContainer:
 import React from 'react'
 import { LazyContainer, MutationType, Store } from 'rc-lazy'
 
+Store.BASE_URL = '/api'
+
 class MyComponent extends LazyContainer {
   constructor(props) {
     super(props)
-    Store.BASE_URL = '/api'
-    this.state = {
-      TestData: []
-    }
+    this.state = { TestData: [] }
   }
 
   render() {
@@ -49,42 +52,19 @@ MyComponent.defaultProps = {
 export default MyComponent
 ```
 
-You need to setup the endpoint (and BASE_URL if needed) to make an AJAX request to ```http://<IP Server>:<Port>/api/system``` to get the data.
+You can setup network layer throught Store.BASE_URL. In this case, when you setup ```Store.BASE_URL = '/api'```, every AJAX requests will call to ```http://<IP Server>:<Port>/api/```
 
-The response data will be pushed to state so UI will change whenever state changes.
-
-In case we want to make a POST request to ```http://<IP Server>:<Port>/api/system/login```, add the mutations object into defaultProps:
+You need to setup the endpoint to make an AJAX request to ```http://<IP Server>:<Port>/api/<endpoint>``` throught defaultProps:
 
 ```javascript
 MyComponent.defaultProps = {
-  endpoint: 'system',
-  mutations: {
-    login: {
-      type: MutationType.POST,
-      path: 'security/login'
-    }
-  }
+  endpoint: 'system'
 }
 ```
 
-Then you can call ```login``` as a function and add the record, success function and failure function like this:
+The response data will be pushed to state so that UI can change whenever state changes.
 
-```javascript
-this.props.lazy.login({
-  record: {
-    Id: "my_id",
-    Password: "my_password"
-  },
-  success: response => {
-    console.log(response)
-  },
-  failure: response => {
-    console.log(response)
-  }
-})
-```
-
-In case we want to add some query params, just change the endpoint:
+In case you want to add some query params, just change the endpoint fragment:
 
 ```javascript
 MyComponent.defaultProps = {
@@ -100,20 +80,96 @@ MyComponent.defaultProps = {
 }
 ```
 
-And one more thing, if you want to do something with the response data before it's pushed to state, just add the resolve function like below:
+If you want to do something with the response data before it's pushed to state, just add the resolve function like below:
 
 ```javascript
 MyComponent.defaultProps = {
   endpoint: 'master-data/card',
   resolve: response => {
-    response.groups = Seq.groupBy(response.Cards, card => card.Type)
-    response.keys = Seq.keySet(response.groups)
-    response.active = response.keys[0]
+    // Do something with response befor return
     return response
   }
 }
 ```
 
-### License
+### Mutations
 
-MIT
+Add mutations fragment into defaultProps, type can be MutationType.POST, MutationType.PUT, MutationType.DELETE.
+
+```javascript
+MyComponent.defaultProps = {
+  endpoint: 'system',
+  mutations: {
+    login: {
+      type: MutationType.POST,
+      path: 'security/login'
+    }
+  }
+}
+```
+
+As you can see from above, we add ```login``` to mutations fragment as a POST request and it will call to ```http://<IP Server>:<Port>/api/security/login```
+Then you can call ```login``` as a function and add the record, success function and failure function like this:
+Here's an example of this mutation in use:
+
+```javascript
+  handleLogin() {
+    this.props.lazy.login({
+      record: {
+        Id: "my_id",
+        Password: "my_password"
+      },
+      success: response => {
+        console.log(response)
+      },
+      failure: () => {
+        // Do something when it's failure
+      }
+    })
+  }
+```
+
+We pass an object as a parameter into login function with the format:
+
+```javascript
+{
+  record:  { ... }, // data to be sent to the server
+  success: response => { ... }, // a function to be called if the request succeeds.
+  failure: response => { ... } // a function to be called if the request fails.
+}
+```
+
+# Cache
+
+## Saving cache:
+
+```javascript
+import { Cache } from 'rc-lazy'
+
+// API
+Cache.set(key, value)
+
+// example
+Cache.set('token', { tokenId: 1, accessToken: 'abcdef' })
+```
+
+## Retrieving cache:
+
+```javascript
+// API
+Cache.get(key)
+
+// example
+const token = Cache.get('token') // token = { tokenId: 1, accessToken: 'abcdef' }
+```
+
+## Flushing cache:
+
+```javascript
+// API
+Cache.remove(key)
+
+// example
+Cache.remove('token')
+Cache.remove() // remove all cached data
+```

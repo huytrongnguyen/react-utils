@@ -7,7 +7,6 @@ export default class LazyContainer extends Component {
   }
 
   componentWillMount() {
-    this.props.relay = {}
     const { mutations, lazy } = this.props
     if (mutations) {
       for (let mutationName in mutations) {

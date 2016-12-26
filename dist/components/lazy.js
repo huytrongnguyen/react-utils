@@ -38,15 +38,14 @@ var LazyContainer = function (_Component) {
     value: function componentWillMount() {
       var _this2 = this;
 
-      this.props.relay = {};
       var _props = this.props,
           mutations = _props.mutations,
-          relay = _props.relay;
+          lazy = _props.lazy;
 
       if (mutations) {
         var _loop = function _loop(mutationName) {
-          relay[mutationName] = function (mutationFragment) {
-            return _this2.commitUpdate(mutations[mutationName], mutationFragment);
+          lazy[mutationName] = function (options) {
+            return _this2.commitUpdate(mutations[mutationName], options);
           };
         };
 
@@ -59,12 +58,12 @@ var LazyContainer = function (_Component) {
     key: 'componentDidMount',
     value: function () {
       var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-        var fragment, endpoint, params, response;
+        var endpoint, params, response;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (this.props.fragment) {
+                if (this.props.endpoint) {
                   _context.next = 2;
                   break;
                 }
@@ -72,9 +71,10 @@ var LazyContainer = function (_Component) {
                 return _context.abrupt('return');
 
               case 2:
-                fragment = this.props.fragment;
-                endpoint = fragment.name || fragment;
-                params = fragment.initialVariables ? fragment.initialVariables() : null;
+                endpoint = this.props.endpoint;
+
+                endpoint = endpoint.name || endpoint;
+                params = endpoint.initialVariables ? endpoint.initialVariables() : null;
                 _context.next = 7;
                 return _store2.default.fetch(endpoint, params);
 
@@ -103,23 +103,23 @@ var LazyContainer = function (_Component) {
   }, {
     key: 'commitUpdate',
     value: function () {
-      var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(mutator, mutationFragment) {
+      var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(mutator, options) {
         var endpoint, response;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                endpoint = mutationFragment.path || mutator.path;
+                endpoint = options.path || mutator.path;
                 _context2.next = 3;
-                return _store2.default.mutate(endpoint, mutator.type, mutationFragment.record);
+                return _store2.default.mutate(endpoint, mutator.type, options.record);
 
               case 3:
                 response = _context2.sent;
 
-                if (response && mutationFragment.success) {
-                  mutationFragment.success(response);
-                } else if (mutationFragment.failure) {
-                  mutationFragment.failure();
+                if (response && options.success) {
+                  options.success(response);
+                } else if (options.failure) {
+                  options.failure();
                 }
 
               case 5:

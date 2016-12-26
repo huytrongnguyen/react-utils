@@ -28,4 +28,13 @@ Object.defineProperty(exports, 'LazyContainer', {
   }
 });
 
+var _cache = require('./data/cache');
+
+Object.defineProperty(exports, 'Cache', {
+  enumerable: true,
+  get: function get() {
+    return _cache.Cache;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

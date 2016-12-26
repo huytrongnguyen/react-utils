@@ -1,39 +1,41 @@
 class Cache {
   constructor() {
-    this._cache = {};
+    this._cache = {}
   }
 
   hasLocalStorage() {
     try {
-      return 'localStorage' in window && window.localStorage !== null;
+      return 'localStorage' in window && window.localStorage !== null
     } catch (e) {
-      return false;
+      return false
     }
   }
 
   get(key) {
     if (this.hasLocalStorage()) {
-      return localStorage.getItem(key) || undefined;
+      return localStorage.getItem(key) || undefined
     } else {
-      return this._cache[key] || undefined;
+      return this._cache[key] || undefined
     }
   }
 
   set(key, value) {
     if (this.hasLocalStorage()) {
-      localStorage.setItem(key, value);
+      localStorage.setItem(key, value)
     } else {
-      this._cache[key] = value;
+      this._cache[key] = value
     }
   }
 
   remove(key) {
-    if (this.hasLocalStorage()) {
-      localStorage.removeItem(key);
+    if (!key) {
+      this._cache = {}
+    } else if (this.hasLocalStorage()) {
+      localStorage.removeItem(key)
     } else {
-      delete this._cache[key];
+      delete this._cache[key]
     }
   }
 }
 
-export default new Cache;
+export default new Cache
