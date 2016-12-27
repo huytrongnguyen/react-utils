@@ -4,10 +4,10 @@ import Store from './../data/store'
 export default class LazyContainer extends Component {
   constructor(props) {
     super(props)
-    this.props.lazy = {}
   }
 
   componentWillMount() {
+    this.props.lazy = {}
     const { mutations, lazy } = this.props
     if (mutations) {
       for (let mutationName in mutations) {
