@@ -30,7 +30,10 @@ var LazyContainer = function (_Component) {
   function LazyContainer(props) {
     _classCallCheck(this, LazyContainer);
 
-    return _possibleConstructorReturn(this, (LazyContainer.__proto__ || Object.getPrototypeOf(LazyContainer)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (LazyContainer.__proto__ || Object.getPrototypeOf(LazyContainer)).call(this, props));
+
+    _this.props.lazy = {};
+    return _this;
   }
 
   _createClass(LazyContainer, [{

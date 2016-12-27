@@ -86,7 +86,7 @@ If you want to do something with the response data before it's pushed to state, 
 MyComponent.defaultProps = {
   endpoint: 'master-data/card',
   resolve: response => {
-    // Do something with response befor return
+    // Do something with response before return
     return response
   }
 }
