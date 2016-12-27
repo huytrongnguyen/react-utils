@@ -75,9 +75,9 @@ var LazyContainer = function (_Component) {
 
               case 2:
                 endpoint = this.props.endpoint;
+                params = endpoint.initialVariables ? endpoint.initialVariables() : null;
 
                 endpoint = endpoint.name || endpoint;
-                params = endpoint.initialVariables ? endpoint.initialVariables() : null;
                 _context.next = 7;
                 return _store2.default.fetch(endpoint, params);
 

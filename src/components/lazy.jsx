@@ -21,8 +21,8 @@ export default class LazyContainer extends Component {
       return;
     }
     let endpoint = this.props.endpoint
-    endpoint = endpoint.name || endpoint
     const params = endpoint.initialVariables ? endpoint.initialVariables() : null
+    endpoint = endpoint.name || endpoint
     let response = await Store.fetch(endpoint, params)
     if (this.props.resolve) {
       response = this.props.resolve(response)

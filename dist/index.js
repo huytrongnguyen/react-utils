@@ -33,7 +33,7 @@ var _cache = require('./data/cache');
 Object.defineProperty(exports, 'Cache', {
   enumerable: true,
   get: function get() {
-    return _cache.Cache;
+    return _interopRequireDefault(_cache).default;
   }
 });
 
