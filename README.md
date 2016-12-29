@@ -1,12 +1,23 @@
-This project is divided in multiple parts
+# React Lazy
 
-# Installation
+[![NPM version](http://img.shields.io/npm/v/rc-lazy.svg?style=flat-square)](http://npmjs.org/package/rc-lazy)
+[![Build Status](https://travis-ci.org/huytrongnguyen/react-utils.svg)](https://travis-ci.org/huytrongnguyen/react-utils)
+[![npm download](https://img.shields.io/npm/dm/rc-lazy.svg?style=flat-square)](https://npmjs.org/package/rc-lazy)
+
+Utility Components and Services for React
+
+## Installation
 
 You'll need both React and React Lazy:
 
-`npm install --save react rc-lazy`
+[![rc-lazy](https://nodei.co/npm/rc-lazy.png)](https://npmjs.org/package/rc-lazy)
 
-# LazyContainer
+## Features
+
+* Lazy Container
+* Cache
+
+## LazyContainer
 
 A JAVASCRIPT LIBRARY FOR BUILDING DATA-DRIVEN REACT APPLICATIONS
 
@@ -19,9 +30,9 @@ I like Relay but it only works with GraphQL. Then I make a small library based o
 It doesn't violate "separation of concerns" design principle since we do not have any real AJAX request in presentation component. Every AJAX requests lives in container component called LazyContainer.
 The response data will be pushed into the state so that UI can change whenever state change.
 
-## Usage
+### Usage
 
-### Containers
+#### Containers
 
 Create a React component extends from LazyContainer:
 
@@ -92,7 +103,7 @@ MyComponent.defaultProps = {
 }
 ```
 
-### Mutations
+#### Mutations
 
 Add mutations fragment into defaultProps, type can be MutationType.POST, MutationType.PUT, MutationType.DELETE.
 
@@ -139,46 +150,11 @@ We pass an object as a parameter into login function with the format:
 }
 ```
 
-# Cache
-
-## Saving cache:
-
-```javascript
-import { Cache } from 'rc-lazy'
-
-// API
-Cache.set(key, value)
-
-// example
-Cache.set('token', { tokenId: 1, accessToken: 'abcdef' })
-```
-
-## Retrieving cache:
-
-```javascript
-// API
-Cache.get(key)
-
-// example
-const token = Cache.get('token') // token = { tokenId: 1, accessToken: 'abcdef' }
-```
-
-## Flushing cache:
-
-```javascript
-// API
-Cache.remove(key)
-
-// example
-Cache.remove('token')
-Cache.remove() // remove all cached data
-```
-
-## Handle when Ajax complete
+#### Handle when Ajax complete
 
 You can egister a handler to be called when Ajax requests complete (with an error):
 
-```
+```javascript
 import { Xhr } from 'rc-lazy'
 
 Xhr.ajaxComplete = () => {
@@ -199,3 +175,46 @@ Xhr.ajaxError = (error) => {
   }, 2000)
 }
 ```
+
+## Cache
+
+A KEY-VALUE STORE DATABASE TO STORE DATA LOCALLY IN THE BROWSER
+
+### Usage
+
+#### Saving cache
+
+```javascript
+import { Cache } from 'rc-lazy'
+
+// API
+Cache.set(key, value)
+
+// example
+Cache.set('token', { tokenId: 1, accessToken: 'abcdef' })
+```
+
+#### Retrieving cache
+
+```javascript
+// API
+Cache.get(key)
+
+// example
+const token = Cache.get('token') // token = { tokenId: 1, accessToken: 'abcdef' }
+```
+
+#### Flushing cache
+
+```javascript
+// API
+Cache.remove(key)
+
+// example
+Cache.remove('token')
+Cache.remove() // remove all cached data
+```
+
+## License
+
+rc-lazy is released under the MIT license.
