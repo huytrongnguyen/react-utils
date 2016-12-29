@@ -3,22 +3,22 @@ import String from './../core/string'
 class Xhr {
   constructor() {
     this.xhr = new XMLHttpRequest()
+    this.ajaxComplete = function() { /* to be implemented */ }
+    this.ajaxError = function(error) { /* to be implemented */ }
   }
 
   async ajax(url, method, params) {
     try {
       const response = await this.promise({ url, method, params })
-      if (response.Error) {
-        console.error(response.Error.Type, ':', response.Error.Message)
-        if (response.Error.Trace) {
-          console.error(response.Error.Trace)
-        }
-        // TODO: show a toast message
+      if (response.error) {
+        this.ajaxError(response.error)
         return null
       }
+      this.ajaxComplete()
       return response
     } catch (e) {
       console.error(e)
+      this.ajaxError(e)
       return null
     }
   }

@@ -21,6 +21,8 @@ var Xhr = function () {
     _classCallCheck(this, Xhr);
 
     this.xhr = new XMLHttpRequest();
+    this.ajaxComplete = function () {/* to be implemented */};
+    this.ajaxError = function (error) {/* to be implemented */};
   }
 
   _createClass(Xhr, [{
@@ -39,19 +41,16 @@ var Xhr = function () {
               case 3:
                 response = _context.sent;
 
-                if (!response.Error) {
-                  _context.next = 8;
+                if (!response.error) {
+                  _context.next = 7;
                   break;
                 }
 
-                console.error(response.Error.Type, ':', response.Error.Message);
-                if (response.Error.Trace) {
-                  console.error(response.Error.Trace);
-                }
-                // TODO: show a toast message
+                this.ajaxError(response.error);
                 return _context.abrupt('return', null);
 
-              case 8:
+              case 7:
+                this.ajaxComplete();
                 return _context.abrupt('return', response);
 
               case 11:
@@ -59,9 +58,10 @@ var Xhr = function () {
                 _context.t0 = _context['catch'](0);
 
                 console.error(_context.t0);
+                this.ajaxError(_context.t0);
                 return _context.abrupt('return', null);
 
-              case 15:
+              case 16:
               case 'end':
                 return _context.stop();
             }

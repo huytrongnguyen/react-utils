@@ -173,3 +173,29 @@ Cache.remove(key)
 Cache.remove('token')
 Cache.remove() // remove all cached data
 ```
+
+## Handle when Ajax complete
+
+You can egister a handler to be called when Ajax requests complete (with an error):
+
+```
+import { Xhr } from 'rc-lazy'
+
+Xhr.ajaxComplete = () => {
+  console.log('Ajax Complete')
+}
+
+Xhr.ajaxError = (error) => {
+  console.error(error.type, ':', error.message)
+  if (error.trace) {
+    console.error(error.trace)
+  }
+  const notification = `<div class="alert alert-danger" role="alert">
+    <strong>${error.type}!</strong> ${error.message}
+  </div>`
+  document.getElementById('notify').innerHTML = notification
+  window.setTimeout(() => {
+    document.getElementById('notify').innerHTML = ''
+  }, 2000)
+}
+```

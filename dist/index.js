@@ -4,6 +4,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _xhr = require('./ajax/xhr');
+
+Object.defineProperty(exports, 'Xhr', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_xhr).default;
+  }
+});
+
 var _store = require('./data/store');
 
 Object.defineProperty(exports, 'MutationType', {
