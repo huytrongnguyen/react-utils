@@ -1,6 +1,6 @@
 {
   "name": "rc-lazy",
-  "version": "0.2.5",
+  "version": "1.0.0",
   "description": "Utility Components and Services for React",
   "main": "dist/index.js",
   "author": "Lionel Nguyen <huytrongnguyen@kms-technology.com>",
@@ -9,7 +9,9 @@
     "relay",
     "flux",
     "react",
-    "rest"
+    "rest",
+    "cache",
+    "pubsub"
   ],
   "homepage": "https://github.com/huytrongnguyen/react-utils#readme",
   "repository": {

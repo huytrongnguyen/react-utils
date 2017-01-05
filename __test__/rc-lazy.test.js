@@ -1,7 +1,10 @@
 import 'babel-polyfill'
-import { Xhr } from './../src/index'
+import { Cache } from './../src/index'
 
-test("test", () => {
-  console.log(Xhr)
-  expect(1).toBe(1)
+test("it should set name into cache", () => {
+  Cache.set('name', 'lionel')
+  expect(Cache.get('name')).toBe('lionel')
+  Cache.remove('name')
+  expect(Cache.get('name')).toBe(undefined)
+
 })

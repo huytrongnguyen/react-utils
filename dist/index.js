@@ -46,4 +46,13 @@ Object.defineProperty(exports, 'Cache', {
   }
 });
 
+var _pubsub = require('./event/pubsub');
+
+Object.defineProperty(exports, 'PubSub', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_pubsub).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
