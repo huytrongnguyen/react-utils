@@ -22,12 +22,12 @@ You'll need both React and React Lazy:
 A JAVASCRIPT LIBRARY FOR BUILDING DATA-DRIVEN REACT APPLICATIONS
 
 As we know, React has no networking/AJAX features. You can see this article: [http://andrewhfarmer.com/react-ajax-best-practices/](http://andrewhfarmer.com/react-ajax-best-practices/)
-I like Relay but it only works with GraphQL. Then I make a small library based on Relay concept and mix it with Comtainer Components and it works with RESTful backends.
+I like Relay but it only works with GraphQL. Then I make a small library based on Relay concept and mix it with Container Components and it works with RESTful backends.
 
 ![Alt](http://andrewhfarmer.com/react-ajax-best-practices/img/container-components.png "Container Components")
 ![Alt](http://andrewhfarmer.com/react-ajax-best-practices/img/relay.png "Relay")
 
-It doesn't violate "separation of concerns" design principle since we do not have any real AJAX request in presentation component. Every AJAX requests lives in container component called LazyContainer.
+It doesn't violate "separation of concerns" design principle since we do not have any real AJAX request in presentation component. Every AJAX request lives in container component called LazyContainer.
 The response data will be pushed into the state so that UI can change whenever state change.
 
 ### Usage
@@ -152,7 +152,7 @@ We pass an object as a parameter into login function with the format:
 
 #### Handle when Ajax complete
 
-You can egister a handler to be called when Ajax requests complete (with an error):
+You can register a handler to be called when Ajax requests complete (with an error):
 
 ```javascript
 import { Xhr } from 'rc-lazy'
