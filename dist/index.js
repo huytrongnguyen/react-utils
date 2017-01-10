@@ -37,6 +37,15 @@ Object.defineProperty(exports, 'LazyContainer', {
   }
 });
 
+var _container = require('./data/container');
+
+Object.defineProperty(exports, 'dataContainer', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_container).default;
+  }
+});
+
 var _cache = require('./data/cache');
 
 Object.defineProperty(exports, 'Cache', {
@@ -52,6 +61,21 @@ Object.defineProperty(exports, 'PubSub', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_pubsub).default;
+  }
+});
+
+var _router = require('./components/router');
+
+Object.defineProperty(exports, 'Route', {
+  enumerable: true,
+  get: function get() {
+    return _router.Route;
+  }
+});
+Object.defineProperty(exports, 'Router', {
+  enumerable: true,
+  get: function get() {
+    return _router.Router;
   }
 });
 
