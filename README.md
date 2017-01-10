@@ -16,6 +16,7 @@ You'll need both React and React Lazy:
 ## Features
 
 * Lazy Container
+* dataContainer (separate to [rc-model](https://npmjs.org/package/rc-model) library)
 * Cache
 * PubSub
 
@@ -178,6 +179,44 @@ Xhr.ajaxError = (error) => {
 }
 ```
 
+#### Use decorator instead of inheritance
+
+Instead of inheritance from LazyContainer, now you can use dataContainer decorator. Everything you put to defaultProps before now you can put to decorator as below:
+
+```javascript
+import React, { Component } from 'react'
+import { dataContainer, MutationType, Store } from 'rc-lazy'
+
+Store.BASE_URL = '/api'
+
+@dataContainer({
+  endpoint: {
+    name: 'system',
+    initialVariables: () => {
+      return {
+        page: 1,
+        size: 20
+      }
+    }
+  }
+})
+class MyComponent extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { TestData: [] }
+  }
+
+  render() {
+    const { TestData } = this.state
+    return <div>
+      <p>{JSON.stringify(TestData)}</p>
+    </div>;
+  }
+}
+
+export default MyComponent
+```
+
 ## Cache
 
 A KEY-VALUE STORE DATABASE TO STORE DATA LOCALLY IN THE BROWSER
@@ -216,6 +255,48 @@ Cache.remove(key)
 Cache.remove('token')
 Cache.remove() // remove all cached data
 ```
+
+## PubSub
+
+EVENT HANDLING MECHANISM FOR GLOBALLY NAMED EVENTS
+
+### Usage
+
+#### Subcribe to a given event name
+
+```javascript
+PubSub.subcribe('sessionChange', (response) => {
+  // do something with response
+})
+```
+
+Note that you can subcrible multiple callback functions to a given event name. You need to pass the same event name and function to unsubscribe that you passed into subscribe.
+
+#### Remove subcribers
+
+```javascript
+const onSessionChange = (response) { /* do something with response */ }
+
+PubSub.subcribe('sessionChange', onSessionChange)
+
+// sometime later in your code you dont want to get notified anymore
+PubSub.unsubscribe('sessionChange', onSessionChange)
+```
+
+One you want to remove all subcribers for named event, just call ```clear```:
+
+```javascript
+PubSub.clear('sessionChange')
+```
+
+#### Fire the named event
+
+The first argument is the name, the rest of the arguments are passed to the subscribers.
+
+```javascript
+PubSub.publish('sessionChange', response)
+```
+
 
 ## License
 
