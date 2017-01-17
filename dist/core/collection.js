@@ -14,10 +14,10 @@ var List = exports.List = function () {
   function List(value) {
     _classCallCheck(this, List);
 
-    if (!value) {
+    if (!value || value.length === 0) {
       return EMPTY_LIST;
     }
-    this.array = value;
+    this.array = value.length > 1 ? value : value[0];
     return this;
   }
 

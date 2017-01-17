@@ -27,7 +27,7 @@ export default class LazyContainer extends Component {
     if (this.props.resolve) {
       response = this.props.resolve(response)
     }
-    this.setState(response)
+    this.setState(() => (response))
   }
 
   async commitUpdate(mutator, options) {

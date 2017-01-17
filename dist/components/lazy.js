@@ -85,7 +85,9 @@ var LazyContainer = function (_Component) {
                 if (this.props.resolve) {
                   response = this.props.resolve(response);
                 }
-                this.setState(response);
+                this.setState(function () {
+                  return response;
+                });
 
               case 10:
               case 'end':

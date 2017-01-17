@@ -37,7 +37,7 @@ Object.defineProperty(exports, 'LazyContainer', {
   }
 });
 
-var _container = require('./data/container');
+var _container = require('./decorators/container');
 
 Object.defineProperty(exports, 'dataContainer', {
   enumerable: true,
@@ -55,7 +55,7 @@ Object.defineProperty(exports, 'Cache', {
   }
 });
 
-var _pubsub = require('./event/pubsub');
+var _pubsub = require('./events/pubsub');
 
 Object.defineProperty(exports, 'PubSub', {
   enumerable: true,
@@ -76,6 +76,12 @@ Object.defineProperty(exports, 'Router', {
   enumerable: true,
   get: function get() {
     return _router.Router;
+  }
+});
+Object.defineProperty(exports, 'Link', {
+  enumerable: true,
+  get: function get() {
+    return _router.Link;
   }
 });
 
