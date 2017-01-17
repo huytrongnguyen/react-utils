@@ -1,3 +1,8 @@
+## [v1.2.0]
+> Jan 17, 2017
+
+- **Feature**: Routing library for React
+
 ## [v1.1.0]
 > Jan 10, 2017
 
