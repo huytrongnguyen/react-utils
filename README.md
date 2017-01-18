@@ -15,10 +15,124 @@ You'll need both React and React Lazy:
 
 ## Features
 
-* [Building Data-Driven React Application](https://github.com/huytrongnguyen/react-utils/blob/master/docs/Building Data Driven React Application.md)
-* [Storing Data Locally In The Browser](https://github.com/huytrongnguyen/react-utils/blob/master/docs/Storing Data Locally In The Browser.md)
-* [Event Handling Mechanism For Globally Named Events](https://github.com/huytrongnguyen/react-utils/blob/master/docs/Event Handling Mechanism For Globally Named Events.md)
-* [Routing Library For React](https://github.com/huytrongnguyen/react-utils/blob/master/docs/Routing Library For React.md)
+### Building Data-Driven React Application
+
+ * Setup network layer throught ```Store.BASE_URL```
+ * Setup the endpoint to make an AJAX request in ```dataContainer``` decorator
+ * The response data will be pushed to the state of the component
+
+```js
+import React, { Component } from 'react'
+import { dataContainer, MutationType, Store } from 'rc-lazy'
+
+Store.BASE_URL = '/api'
+
+@dataContainer({
+  endpoint: {
+    name: 'system',
+    initialVariables: () => {
+      return {
+        page: 1,
+        size: 20
+      }
+    }
+  }
+})
+class MyComponent extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { TestData: [] }
+  }
+
+  render() {
+    const { TestData } = this.state
+    return <div>
+      <p>{JSON.stringify(TestData)}</p>
+    </div>;
+  }
+}
+
+export default MyComponent
+```
+
+### Storing Data Locally In The Browser
+
+ * Saving cache
+
+```js
+import { Cache } from 'rc-lazy'
+
+Cache.set('token', { tokenId: 1, accessToken: 'abcdef' })
+```
+
+ * Retrieving cache
+
+```js
+const token = Cache.get('token') // token = { tokenId: 1, accessToken: 'abcdef' }
+```
+
+ * Flushing cache
+
+```js
+Cache.remove('token')
+Cache.remove() // remove all cached data
+```
+
+### Event Handling Mechanism For Globally Named Events
+
+ * Subcribe to a given event name
+
+```js
+PubSub.subcribe('sessionChange', (response) => {
+  // do something with response
+})
+```
+
+ * Remove subcribers
+
+```js
+const onSessionChange = (response) { /* do something with response */ }
+
+PubSub.subcribe('sessionChange', onSessionChange)
+
+// sometime later in your code you dont want to get notified anymore
+PubSub.unsubscribe('sessionChange', onSessionChange)
+
+// one you want to remove all subcribers for named event, just call ```clear```:
+PubSub.clear('sessionChange')
+```
+
+ * Fire the named event
+
+```js
+PubSub.publish('sessionChange', response)
+```
+
+### Routing Library For React
+ * Declare the router configuration throught ```Router``` component
+ * Declare the matched URL with the component by using ```route``` decorator
+
+```js
+import React, { Component } from 'react'
+import { Router, route } from 'rc-lazy'
+import Layout from './layout'
+
+@route('*')
+class Dashboard extends Component {
+  render() {
+    return <div />
+  }
+}
+
+@route('about')
+class About extends Component {
+  render() {
+    return <div />
+  }
+}
+
+render(<Router component={Layout} />, document.getElementById('react-root'))
+```
 
 ## License
 

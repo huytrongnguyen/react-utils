@@ -1,6 +1,6 @@
 # Routing Library For React
 
-The same behavior with ```react-router``` but simpler and it will be upgraded in next version (^_^)
+The same behavior with ```react-router``` but simpler
 
 ## Usage
 
