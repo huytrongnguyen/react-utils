@@ -2,10 +2,10 @@ const EMPTY_LIST = []
 
 export class List {
   constructor(value) {
-    if (!value || value.length === 0) {
-      return EMPTY_LIST
+    this.array = EMPTY_LIST
+    if (value && value.length > 0) {
+      this.array = value.length > 1 ? value : (value[0] ? value[0] : EMPTY_LIST)
     }
-    this.array = value.length > 1 ? value : value[0]
     return this
   }
 

@@ -13,6 +13,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _collection = require('./../core/collection');
 
+var _route = require('./../decorators/route');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -52,7 +54,6 @@ var Router = exports.Router = function (_Component2) {
 
     var _this2 = _possibleConstructorReturn(this, (Router.__proto__ || Object.getPrototypeOf(Router)).call(this, props));
 
-    _this2.routes = {};
     _this2.state = { route: window.location.hash.substring(1) };
     _this2.createTransitionManager();
     return _this2;
@@ -73,28 +74,23 @@ var Router = exports.Router = function (_Component2) {
     key: 'render',
     value: function render() {
       var component = this.props.component;
-      if (!component) {
-        console.error('component props should not be null');
-      }
       var route = this.state.route,
-          child = this.routes['*'];
+          child = _route.routes['*'];
 
       route = route.toLowerCase();
-      if (route && this.routes[route]) {
-        child = this.routes[route];
+      if (route && _route.routes[route]) {
+        child = _route.routes[route];
       }
-      return _react2.default.createElement(component, {}, _react2.default.createElement(child, {}, null));
+      return _react2.default.createElement(component || 'div', {}, _react2.default.createElement(child, {}, null));
     }
   }, {
     key: 'createTransitionManager',
     value: function createTransitionManager() {
-      var _this4 = this;
-
       var children = this.props.children;
 
       _collection.List.of(children).each(function (route) {
         if (route.props && route.props.path && route.props.component) {
-          _this4.routes[route.props.path] = route.props.component;
+          _route.routes[route.props.path] = route.props.component;
         }
       });
     }
@@ -122,11 +118,14 @@ var Link = exports.Link = function (_Component3) {
           activeClassName = _props.activeClassName,
           children = _props.children;
 
-      var link = to || '';
-      var cls = className;
+
+      var link = to || '',
+          cls = className;
+
       if (link === route && activeClassName) {
         cls += ' ' + activeClassName;
       }
+
       return _react2.default.createElement(
         'a',
         { href: '#' + link, className: cls },

@@ -8,7 +8,7 @@ The same behavior with ```react-router``` but simpler and it will be upgraded in
 
 A route configuration is a set of instructions that tell a router how to match the URL with the component.
 
-```javascript
+```js
 import React, { Component } from 'react'
 import { Router, Route } from 'rc-lazy'
 import Layout from './layout'
@@ -38,7 +38,7 @@ You must use ```path="*"``` to specify a default page. Then you need to setup a 
 
 ### Setup application
 
-```javascript
+```js
 import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
@@ -50,7 +50,7 @@ render(<Routes />, document.getElementById('react-root'))
 
 ### Navigation
 
-```javascript
+```js
 import React, { Component } from 'react'
 import { Link } from 'rc-lazy'
 
@@ -77,3 +77,30 @@ export default class Layout extends Component {
 ```
 
 ```Link``` is the way to allow users to navigate around your application. Set the path to ```to``` props to navigate to the component that you defined in ```Router```. If ```to``` is missed, default page will be returned.
+
+### Using ```route``` decorator to configure route
+
+Beside declaring the route in ```Router``` component, you can use ```route``` decorator to declare, it's helpful when you don't want to change ```Router``` component when you add a new route, especially it might be conflict with other team member.
+
+```js
+import React, { Component } from 'react'
+import { Router, route } from 'rc-lazy'
+import Layout from './layout'
+
+@route('*')
+class Dashboard extends Component {
+  render() {
+    return <div />
+  }
+}
+
+@route('about')
+class About extends Component {
+  render() {
+    return <div />
+  }
+}
+
+render(<Router component={Layout} />, document.getElementById('react-root'))
+```
+

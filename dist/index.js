@@ -85,4 +85,13 @@ Object.defineProperty(exports, 'Link', {
   }
 });
 
+var _route = require('./decorators/route');
+
+Object.defineProperty(exports, 'route', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_route).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
