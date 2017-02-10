@@ -1,0 +1,28 @@
+@import 'variables';
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  background-color: $color-faded;
+}
+
+.nav-brand {
+  font-size: $size-lg;
+  font-weight: bold;
+  padding: $size-sm $size-md;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  .nav-item {
+    padding: $size-md;
+  }
+}
+
+.nav-link {
+  .active {
+    color: rgba(0, 0, 0, 1);
+  }
+}
