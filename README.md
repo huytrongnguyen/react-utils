@@ -23,11 +23,11 @@ You'll need both React and React Lazy:
 
 ```js
 import React, { Component } from 'react'
-import { dataContainer, MutationType, Store } from 'rc-lazy'
+import { Xhr, MutationType, store } from 'rc-lazy'
 
-Store.BASE_URL = '/api'
+Xhr.BASE_URL = '/api'
 
-@dataContainer({
+@store({
   endpoint: {
     name: 'system',
     initialVariables: () => {
@@ -39,13 +39,8 @@ Store.BASE_URL = '/api'
   }
 })
 class MyComponent extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { TestData: [] }
-  }
-
   render() {
-    const { TestData } = this.state
+    const { TestData } = this.props.store.data
     return <div>
       <p>{JSON.stringify(TestData)}</p>
     </div>;
@@ -106,32 +101,6 @@ PubSub.clear('sessionChange')
 
 ```js
 PubSub.publish('sessionChange', response)
-```
-
-### Routing Library For React
- * Declare the router configuration throught ```Router``` component
- * Declare the matched URL with the component by using ```route``` decorator
-
-```js
-import React, { Component } from 'react'
-import { Router, route } from 'rc-lazy'
-import Layout from './layout'
-
-@route('*')
-class Dashboard extends Component {
-  render() {
-    return <div />
-  }
-}
-
-@route('about')
-class About extends Component {
-  render() {
-    return <div />
-  }
-}
-
-render(<Router component={Layout} />, document.getElementById('react-root'))
 ```
 
 ## License

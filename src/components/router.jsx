@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { List } from './../core/collection'
+import List from './../core/list'
 import { routes } from './../decorators/route'
 
 export class Route extends Component {

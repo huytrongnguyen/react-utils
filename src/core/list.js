@@ -1,6 +1,6 @@
 const EMPTY_LIST = []
 
-export class List {
+export default class List {
   constructor(value) {
     this.array = EMPTY_LIST
     if (value && value.length > 0) {

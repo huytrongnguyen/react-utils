@@ -5,11 +5,7 @@
  */
 
 export { default as Xhr } from './ajax/xhr'
-export { MutationType } from './data/store'
-export { default as Store } from './data/store'
-export { default as LazyContainer } from './components/lazy'
-export { default as dataContainer } from './decorators/container'
+export { MutationType } from './ajax/xhr'
+export { default as store } from './decorators/store'
 export { default as Cache } from './data/cache'
 export { default as PubSub } from './events/pubsub'
-export { Route, Router, Link } from './components/router'
-export { default as route } from './decorators/route'
