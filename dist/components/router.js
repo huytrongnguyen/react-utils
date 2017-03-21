@@ -11,7 +11,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _collection = require('./../core/collection');
+var _list = require('./../core/list');
+
+var _list2 = _interopRequireDefault(_list);
 
 var _route = require('./../decorators/route');
 
@@ -88,7 +90,7 @@ var Router = exports.Router = function (_Component2) {
     value: function createTransitionManager() {
       var children = this.props.children;
 
-      _collection.List.of(children).each(function (route) {
+      _list2.default.of(children).each(function (route) {
         if (route.props && route.props.path && route.props.component) {
           _route.routes[route.props.path] = route.props.component;
         }

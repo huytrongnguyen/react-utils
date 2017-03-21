@@ -21,7 +21,7 @@
   },
   "bugs": "https://github.com/huytrongnguyen/react-utils/issues",
   "scripts": {
-    "build": "rm -rf dist/* && node-sass --include-path scss src/scss/lazy.scss dist/css/lazy.css && babel src -D -d dist",
+    "build": "rm -rf dist/* && babel src -D -d dist",
     "build-css": "node-sass --include-path scss src/scss/lazy.scss dist/css/lazy.css",
     "build-script": "babel src -D -d dist"
   },

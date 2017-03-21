@@ -10,7 +10,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var EMPTY_LIST = [];
 
-var List = exports.List = function () {
+var List = function () {
   function List(value) {
     _classCallCheck(this, List);
 
@@ -37,3 +37,5 @@ var List = exports.List = function () {
 
   return List;
 }();
+
+exports.default = List;

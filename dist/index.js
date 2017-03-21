@@ -12,37 +12,19 @@ Object.defineProperty(exports, 'Xhr', {
     return _interopRequireDefault(_xhr).default;
   }
 });
-
-var _store = require('./data/store');
-
 Object.defineProperty(exports, 'MutationType', {
   enumerable: true,
   get: function get() {
-    return _store.MutationType;
+    return _xhr.MutationType;
   }
 });
-Object.defineProperty(exports, 'Store', {
+
+var _store = require('./decorators/store');
+
+Object.defineProperty(exports, 'store', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_store).default;
-  }
-});
-
-var _lazy = require('./components/lazy');
-
-Object.defineProperty(exports, 'LazyContainer', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_lazy).default;
-  }
-});
-
-var _container = require('./decorators/container');
-
-Object.defineProperty(exports, 'dataContainer', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_container).default;
   }
 });
 
@@ -61,36 +43,6 @@ Object.defineProperty(exports, 'PubSub', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_pubsub).default;
-  }
-});
-
-var _router = require('./components/router');
-
-Object.defineProperty(exports, 'Route', {
-  enumerable: true,
-  get: function get() {
-    return _router.Route;
-  }
-});
-Object.defineProperty(exports, 'Router', {
-  enumerable: true,
-  get: function get() {
-    return _router.Router;
-  }
-});
-Object.defineProperty(exports, 'Link', {
-  enumerable: true,
-  get: function get() {
-    return _router.Link;
-  }
-});
-
-var _route = require('./decorators/route');
-
-Object.defineProperty(exports, 'route', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_route).default;
   }
 });
 
